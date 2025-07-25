@@ -42,6 +42,8 @@ class CuentaBancaria():
 
     #Metodos
     def depositar_dinero(self, monto):
+        if not isinstance(monto,(int,float)):
+            raise TypeError("El monto debe tener formato de numero.")
         if monto<=0:
             raise ValueError("El monto a depositar debe ser mayor a cero.")
         self._saldo += monto
