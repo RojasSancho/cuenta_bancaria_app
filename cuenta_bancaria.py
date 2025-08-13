@@ -14,8 +14,8 @@ class CuentaBancaria():
         verificar_tipo(titular)
         verificar_texto(nombre_cuenta)
         verificar_tipo(nombre_cuenta)
-        self._titular = titular.strip()
-        self._nombre_cuenta = nombre_cuenta.strip()
+        self._titular = titular.strip().title()
+        self._nombre_cuenta = nombre_cuenta.strip().title()
         self._saldo = saldo
         self._tiene_tarjeta = tiene_tarjeta
 
