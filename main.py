@@ -56,13 +56,6 @@ def consultar_titular(banco):
                     print("La cuenta digitada no existe.")
                     input("Presiona ENTER para continuar...")
 
-    # if cuenta_bancaria == None:
-    #     print("\nLa cuenta bancaria aun no sido creada.")
-    #     input("Presiona ENTER para continuar...")
-    # else:
-    #     print(f"El titular de la cuenta es: {cuenta_bancaria.titular}")
-    #     input("Presiona ENTER para continuar...")
-
 def depositar_dinero(cuenta_bancaria):
     if cuenta_bancaria is None:
         print("\nLa cuenta bancaria aun no sido creada.")   
