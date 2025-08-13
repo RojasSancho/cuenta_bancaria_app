@@ -124,27 +124,50 @@ def depositar_dinero(banco):
     #             print(error)
     #             input("Presione ENTER para continuar...")
 
-def retirar_dinero(cuenta_bancaria):
-    if cuenta_bancaria is None:
-        print("\nLa cuenta bancaria aun no sido creada.")   
-        input("Presione ENTER para continuar...") 
-    elif cuenta_bancaria.saldo == 0:
-        print("\nSaldo insuficiente para el retiro.")
+def retirar_dinero(banco):
+    cuentas = banco.obtener_cuentas()
+    if not cuentas:
+        print("No hay cuentas existentes.")
+        input("Presione ENTER para continuar...")
+        return
+
+    nombre_cuenta = (input("Digite el nombre de la cuenta de la que desea retirar: ").strip().lower())
+    existencia_cuenta = banco.buscar_cuenta_por_nombre(nombre_cuenta)
+    if existencia_cuenta is None:
+        print("\nLa cuenta digitada no existe.")
+        input("Presione ENTER para continuar...")
+        return
+    print()
+    try:
+        monto = float(input("Digite el monto a retirar: ").strip())
+    except ValueError:
+        print("Debe ingresar un numero valido.")
         input("Presione ENTER para continuar...")
     else:
-        try:
-            monto_retiro = float(input("Digite el monto a retirar: "))
-        except ValueError as error:
-            print("El monto debe digitarse en numeros.")
-            input("Presione ENTER para continuar...") 
-        else:
-            try: 
-                cuenta_bancaria.retirar_dinero(monto_retiro)
-                print("El monto se ha retirado exitosamente!")
-                input("Presione ENTER para continuar...") 
-            except (TypeError, ValueError, SaldoInsuficienteError) as error: 
-                print(error)
-                input("Presione ENTER para continuar...") 
+        estado, mensaje = banco.retirar_dinero_en_cuenta(nombre_cuenta, monto)
+        print(mensaje)
+        input("Presione ENTER para continuar...")
+
+    # if cuenta_bancaria is None:
+    #     print("\nLa cuenta bancaria aun no sido creada.")
+    #     input("Presione ENTER para continuar...")
+    # elif cuenta_bancaria.saldo == 0:
+    #     print("\nSaldo insuficiente para el retiro.")
+    #     input("Presione ENTER para continuar...")
+    # else:
+    #     try:
+    #         monto_retiro = float(input("Digite el monto a retirar: "))
+    #     except ValueError as error:
+    #         print("El monto debe digitarse en numeros.")
+    #         input("Presione ENTER para continuar...")
+    #     else:
+    #         try:
+    #             cuenta_bancaria.retirar_dinero(monto_retiro)
+    #             print("El monto se ha retirado exitosamente!")
+    #             input("Presione ENTER para continuar...")
+    #         except (TypeError, ValueError, SaldoInsuficienteError) as error:
+    #             print(error)
+    #             input("Presione ENTER para continuar...")
 
 def mostrar_menu_principal():
     print("\n------------------------------------")
@@ -158,7 +181,6 @@ def mostrar_menu_principal():
     print("|                                  |")
     print("| 6. Salir                         |")
     print("------------------------------------\n")
-
 
 # Ejecucion del programa
 def main():
@@ -201,7 +223,7 @@ def main():
                 depositar_dinero(banco)
 
             elif opcion == "5":  # 5. Retirar dinero
-                retirar_dinero(cuenta_bancaria)
+                retirar_dinero(banco)
 
             elif opcion == "6":  # 6. Salir
                 print("Gracias por utilizar esta aplicacion!\nCerrando...")
@@ -213,7 +235,6 @@ def main():
         except Exception as error:
             print(f"Ocurrio un error en la ejecucion de la aplicacion: {error}")
             input("Presione ENTER para continuar...")
-
 
 if __name__ == "__main__":
     main()
