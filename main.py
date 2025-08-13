@@ -1,4 +1,5 @@
 from cuenta_bancaria import CuentaBancaria
+from banco import Banco
 from errores import SaldoInsuficienteError
 
 import os
@@ -10,9 +11,10 @@ def limpiar_consola():
     else:
         os.system('clear')
 
-def crear_cuenta():
+def crear_cuenta(titular):
     try:
-        cuenta_bancaria = CuentaBancaria(input("Digite el nombre del titular de la cuenta: "))
+        nombre_cuenta = input("Ingrese un nombre para la nueva cuenta bancaria: ")
+        cuenta_bancaria = CuentaBancaria(titular, nombre_cuenta)
         print("Cuenta creada correctamente!")
         input("Presiona ENTER para continuar.") 
         limpiar_consola()
@@ -30,13 +32,36 @@ def consultar_saldo(cuenta_bancaria):
         print(f"El saldo actual de la cuenta es de: {cuenta_bancaria.saldo}")
         input("Presiona ENTER para continuar...") 
 
-def consultar_titular(cuenta_bancaria):
-    if cuenta_bancaria == None:
-        print("\nLa cuenta bancaria aun no sido creada.")   
-        input("Presiona ENTER para continuar...") 
+def consultar_titular(banco):
+    if banco.obtener_cuentas() == []:
+        print("No hay cuentas creadas.")
+        input("Presiona ENTER para continuar...")
     else:
-        print(f"El titular de la cuenta es: {cuenta_bancaria.titular}")
-        input("Presiona ENTER para continuar...") 
+        contador_cuentas = 0
+        for cuenta in banco.obtener_cuentas():
+            contador_cuentas += 1
+            print(f"{contador_cuentas}. {cuenta.nombre_cuenta}")
+        opcion_cuenta = input("Escriba el nombre de la cuenta a consultar: ")
+        if not isinstance(opcion_cuenta,str):
+            print("La opcion debe tener formato de texto.")
+            input("Presiona ENTER para continuar...")
+        else: 
+            for cuenta in banco.obtener_cuentas():
+                encontrado = False
+                if opcion_cuenta == cuenta.nombre_cuenta:
+                    print(f"\nEl titular de la cuenta es: {cuenta.titular}")
+                    input("Presiona ENTER para continuar...")
+                    break
+                if not encontrado:
+                    print("La cuenta digitada no existe.")
+                    input("Presiona ENTER para continuar...")
+
+    # if cuenta_bancaria == None:
+    #     print("\nLa cuenta bancaria aun no sido creada.")
+    #     input("Presiona ENTER para continuar...")
+    # else:
+    #     print(f"El titular de la cuenta es: {cuenta_bancaria.titular}")
+    #     input("Presiona ENTER para continuar...")
 
 def depositar_dinero(cuenta_bancaria):
     if cuenta_bancaria is None:
@@ -61,6 +86,9 @@ def retirar_dinero(cuenta_bancaria):
     if cuenta_bancaria is None:
         print("\nLa cuenta bancaria aun no sido creada.")   
         input("Presiona ENTER para continuar...") 
+    elif cuenta_bancaria.saldo == 0:
+        print("\nSaldo insuficiente para el retiro.")
+        input("Presiona ENTER para continuar...")
     else:
         try:
             monto_retiro = float(input("Digite el monto a retirar: "))
@@ -77,19 +105,31 @@ def retirar_dinero(cuenta_bancaria):
                 input("Presiona ENTER para continuar...") 
 
 def mostrar_menu_principal():
-    print("\n--------------------------------\nCUENTA BANCARIA")
-    print("1. Crear nueva cuenta bancaria")
-    print("2. Consultar saldo")
-    print("3. Consultar titular")
-    print("4. Depositar dinero")
-    print("5. Retirar dinero")
-    print("6. Salir\n--------------------------------\n")
+    print("\n------------------------------------")
+    print("|         CUENTA BANCARIA          |")
+    print("------------------------------------")
+    print("| 1. Crear nueva cuenta bancaria   |")
+    print("| 2. Consultar saldo               |")
+    print("| 3. Consultar titular             |")
+    print("| 4. Depositar dinero              |")
+    print("| 5. Retirar dinero                |")
+    print("|                                  |")
+    print("| 6. Salir                         |")
+    print("------------------------------------\n")
 
 # Ejecucion del programa
 def main():
-    cuenta_bancaria = None
-    print("\n--------------------------------\nBienvenido(a) a la aplicacion!\n")
-    input("Presiona ENTER para continuar...\n--------------------------------\n")
+    banco = Banco()
+    print("\n-------------------------------------")
+    print("| Bienvenido(a) a la aplicacion!    |")
+    print("|                                   |")
+    input("| Presiona ENTER para continuar...  |\n-------------------------------------\n")
+    limpiar_consola()
+    titular = input("Digite el nombre del titular de las cuentas bancarias: ")
+    while not isinstance(titular, str) or not titular.strip():
+        limpiar_consola()
+        titular = input("El nombre debe ser un texto no vacío. \nDigite el nombre del titular de las cuentas bancarias: ")
+
     while True:
         try:
             limpiar_consola()  
@@ -97,13 +137,14 @@ def main():
             opcion = input("\nDigite un numero para seleccionar: ")
 
             if opcion == "1":  # 1.Crear nueva cuenta bancaria
-                cuenta_bancaria = crear_cuenta()
+                cuenta_bancaria = crear_cuenta(titular)
+                banco.agregar_cuenta(cuenta_bancaria)
 
             elif opcion == "2":  # 2.Consultar saldo
                 consultar_saldo(cuenta_bancaria)
 
             elif opcion =="3": # 3. Consultar titular
-                consultar_titular(cuenta_bancaria)
+                consultar_titular(banco)
 
             elif opcion == "4":  # 4. Depositar dinero
                 depositar_dinero(cuenta_bancaria)
