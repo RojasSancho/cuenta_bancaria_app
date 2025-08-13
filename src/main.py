@@ -82,24 +82,47 @@ def consultar_titular(banco):
         print(f"El titular de la cuenta bancaria es: {cuenta.titular}")
         input("Presione ENTER para continuar...")
 
-def depositar_dinero(cuenta_bancaria):
-    if cuenta_bancaria is None:
-        print("\nLa cuenta bancaria aun no sido creada.")   
-        input("Presione ENTER para continuar...")    
+def depositar_dinero(banco):
+    cuentas = banco.obtener_cuentas()
+    if not cuentas:
+        print("No hay cuentas existentes.")
+        input("Presione ENTER para continuar...")
+        return
+
+    nombre_cuenta = input("Digite el nombre de la cuenta en la que desea depositar: ").strip().lower()
+    existencia_cuenta = banco.buscar_cuenta_por_nombre(nombre_cuenta)
+    if existencia_cuenta is None:
+        print("\nLa cuenta digitada no existe.")
+        input("Presione ENTER para continuar...")
+        return
+    print()
+    try:
+        monto = float(input("Digite el monto a depositar: ").strip())
+    except ValueError:
+        print("Debe ingresar un numero valido.")
+        input("Presione ENTER para continuar...")
     else:
-        try:
-            monto_deposito = float(input("Digite la cantidad que desea depositar: "))
-        except ValueError as error:
-            print("El monto debe digitarse en numeros.")
-            input("Presione ENTER para continuar...")  
-        else:    
-            try:    
-                cuenta_bancaria.depositar_dinero(monto_deposito)
-                print("El monto se ha depositado exitosamente!")
-                input("Presione ENTER para continuar...") 
-            except (TypeError, ValueError) as error:
-                print(error)
-                input("Presione ENTER para continuar...") 
+        estado, mensaje = banco.depositar_dinero_en_cuenta(nombre_cuenta, monto)
+        print(mensaje)
+        input("Presione ENTER para continuar...")
+
+    # if cuenta_bancaria is None:
+    #     print("\nLa cuenta bancaria aun no sido creada.")
+    #     input("Presione ENTER para continuar...")
+    # else:
+    #     try:
+    #         monto_deposito = float(input("Digite la cantidad que desea depositar: "))
+    #     except ValueError as error:
+    #         print("El monto debe digitarse en numeros.")
+    #         input("Presione ENTER para continuar...")
+    #     else:
+    #         try:
+    #             cuenta_bancaria.depositar_dinero(monto_deposito)
+    #             print("El monto se ha depositado exitosamente!")
+    #             input("Presione ENTER para continuar...")
+    #         except (TypeError, ValueError) as error:
+    #             print(error)
+    #             input("Presione ENTER para continuar...")
 
 def retirar_dinero(cuenta_bancaria):
     if cuenta_bancaria is None:
@@ -175,7 +198,7 @@ def main():
                 consultar_titular(banco)
 
             elif opcion == "4":  # 4. Depositar dinero
-                depositar_dinero(cuenta_bancaria)
+                depositar_dinero(banco)
 
             elif opcion == "5":  # 5. Retirar dinero
                 retirar_dinero(cuenta_bancaria)
