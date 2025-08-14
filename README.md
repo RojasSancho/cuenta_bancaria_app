@@ -1,5 +1,5 @@
 # cuenta_bancaria_app
-Autor: Hermes Rojas Sancho  
-Descripción: Aplicación simple para gestionar cuentas bancarias.  
-Permite crear bancos, cuentas y realizar operaciones básicas.  
-Utiliza una interfaz en terminal  
+Autor: Hermes Rojas Sancho<br>
+Descripción: Aplicación simple para gestionar cuentas bancarias.<br>  
+Permite crear bancos, cuentas y realizar operaciones básicas.<br>  
+Utiliza una interfaz en terminal.<br>
