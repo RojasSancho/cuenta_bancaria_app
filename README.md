@@ -1,2 +1,5 @@
 # cuenta_bancaria_app
-With this app you can manage multiple bank accounts and the money in them.
+Autor: Hermes Rojas Sancho
+Descripción: Aplicación simple para gestionar cuentas bancarias.
+Permite crear bancos, cuentas y realizar operaciones básicas.
+Utiliza una interfaz en terminal
