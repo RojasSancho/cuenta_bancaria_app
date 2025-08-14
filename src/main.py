@@ -1,6 +1,7 @@
 from cuenta_bancaria import CuentaBancaria
 from banco import Banco
 from errores import SaldoInsuficienteError
+from tabulate import tabulate
 
 import os
 import platform
@@ -19,13 +20,11 @@ def limpiar_consola():
 
 def crear_cuenta(titular):
     while True:
-        nombre_cuenta = input("Ingrese un nombre para la nueva cuenta bancaria: ")
+        nombre_cuenta = input("\nIngrese un nombre para la nueva cuenta bancaria: ")
         try: 
             cuenta_bancaria = CuentaBancaria(titular, nombre_cuenta)
         except ValueError as error:
-            print(error)    
-            input("Presione ENTER para continuar.") 
-            limpiar_consola()
+            print(error)     
         else:
             print("Cuenta creada correctamente!")
             input("Presione ENTER para continuar.")
@@ -132,6 +131,16 @@ def retirar_dinero(banco):
         print(mensaje)
         input("Presione ENTER para continuar...")
 
+def mostrar_cuentas(banco):
+    cuentas = banco.obtener_cuentas()
+    if cuentas != []:
+        lista_cuentas = []
+        for cuenta in cuentas:
+            lista_para_cuenta = [cuenta.nombre_cuenta, f"{cuenta.saldo:,}"]
+            lista_cuentas.append(lista_para_cuenta)
+            
+        print(tabulate(lista_cuentas, headers=["    NOMBRE  ", "   SALDO   "], tablefmt="fancy_grid"))
+
 def mostrar_menu_principal():
     print("\n------------------------------------")
     print("|            APP BANCO             |")
@@ -163,11 +172,7 @@ def main():
         try:
             limpiar_consola()  
             mostrar_menu_principal()
-            cuentas = banco.obtener_cuentas()
-            if cuentas != []:
-                print("Cuentas actuales:")
-                for cuenta in cuentas:
-                    print(f"{cuenta.nombre_cuenta} || Saldo: {cuenta.saldo}")
+            mostrar_cuentas(banco)
             opcion = input("\nDigite un numero para seleccionar: ").strip()
             print("")
 
