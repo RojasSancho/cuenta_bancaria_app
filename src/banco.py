@@ -43,7 +43,7 @@ class Banco():
         if cuenta:
             try:
                 cuenta.depositar_dinero(monto)
-                return True, f"\nDeposito exitoso! Nuevo total: {cuenta.saldo}"
+                return True, f"\nDeposito exitoso! Nuevo total: {cuenta.saldo:,}"
             except (ValueError, TypeError) as error:
                 return False, str(error)
 
@@ -54,7 +54,7 @@ class Banco():
         if cuenta:
             try:
                 cuenta.retirar_dinero(monto)
-                return True, f"\nRetiro realizado! Nuevo total: {cuenta.saldo}"
+                return True, f"\nRetiro realizado! Nuevo total: {cuenta.saldo:,}"
             except(ValueError, TypeError, SaldoInsuficienteError) as error:
                 return False, str(error)
 

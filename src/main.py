@@ -100,7 +100,7 @@ def depositar_dinero(banco):
     try:
         monto = float(input("Digite el monto a depositar: ").strip())
     except ValueError:
-        print("Debe ingresar un numero valido.")
+        print("\nDebe ingresar un numero valido.")
         input("Presione ENTER para continuar...")
     else:
         estado, mensaje = banco.depositar_dinero_en_cuenta(nombre_cuenta, monto)
@@ -124,7 +124,7 @@ def retirar_dinero(banco):
     try:
         monto = float(input("Digite el monto a retirar: ").strip())
     except ValueError:
-        print("Debe ingresar un numero valido.")
+        print("\nDebe ingresar un numero valido.")
         input("Presione ENTER para continuar...")
     else:
         estado, mensaje = banco.retirar_dinero_en_cuenta(nombre_cuenta, monto)
@@ -139,7 +139,7 @@ def mostrar_cuentas(banco):
             lista_para_cuenta = [cuenta.nombre_cuenta, f"{cuenta.saldo:,}"]
             lista_cuentas.append(lista_para_cuenta)
             
-        print(tabulate(lista_cuentas, headers=["    NOMBRE  ", "   SALDO   "], tablefmt="fancy_grid"))
+        print(tabulate(lista_cuentas, headers=["    NOMBRE DE CUENTA  ", "   SALDO   "], tablefmt="fancy_grid"))
 
 def mostrar_menu_principal():
     print("\n------------------------------------")
