@@ -45,8 +45,10 @@ def eliminar_cuenta(banco):
         input("Presione ENTER para continuar...")
         return
     
-    if banco.eliminar_cuenta_por_nombre(cuenta_a_borrar):
-        print("\nCuenta bancaria eliminada!")
+    eliminado, monto_retirado = banco.eliminar_cuenta_por_nombre(cuenta_a_borrar)
+    
+    if eliminado:
+        print(f"\nCuenta bancaria eliminada! Monto retirado automaticamente: {monto_retirado}")
     else:
         print("\nLa cuenta digitada no existe.")
 
@@ -106,24 +108,6 @@ def depositar_dinero(banco):
         print(mensaje)
         input("Presione ENTER para continuar...")
 
-    # if cuenta_bancaria is None:
-    #     print("\nLa cuenta bancaria aun no sido creada.")
-    #     input("Presione ENTER para continuar...")
-    # else:
-    #     try:
-    #         monto_deposito = float(input("Digite la cantidad que desea depositar: "))
-    #     except ValueError as error:
-    #         print("El monto debe digitarse en numeros.")
-    #         input("Presione ENTER para continuar...")
-    #     else:
-    #         try:
-    #             cuenta_bancaria.depositar_dinero(monto_deposito)
-    #             print("El monto se ha depositado exitosamente!")
-    #             input("Presione ENTER para continuar...")
-    #         except (TypeError, ValueError) as error:
-    #             print(error)
-    #             input("Presione ENTER para continuar...")
-
 def retirar_dinero(banco):
     cuentas = banco.obtener_cuentas()
     if not cuentas:
@@ -148,30 +132,9 @@ def retirar_dinero(banco):
         print(mensaje)
         input("Presione ENTER para continuar...")
 
-    # if cuenta_bancaria is None:
-    #     print("\nLa cuenta bancaria aun no sido creada.")
-    #     input("Presione ENTER para continuar...")
-    # elif cuenta_bancaria.saldo == 0:
-    #     print("\nSaldo insuficiente para el retiro.")
-    #     input("Presione ENTER para continuar...")
-    # else:
-    #     try:
-    #         monto_retiro = float(input("Digite el monto a retirar: "))
-    #     except ValueError as error:
-    #         print("El monto debe digitarse en numeros.")
-    #         input("Presione ENTER para continuar...")
-    #     else:
-    #         try:
-    #             cuenta_bancaria.retirar_dinero(monto_retiro)
-    #             print("El monto se ha retirado exitosamente!")
-    #             input("Presione ENTER para continuar...")
-    #         except (TypeError, ValueError, SaldoInsuficienteError) as error:
-    #             print(error)
-    #             input("Presione ENTER para continuar...")
-
 def mostrar_menu_principal():
     print("\n------------------------------------")
-    print("|         CUENTA BANCARIA          |")
+    print("|            APP BANCO             |")
     print("------------------------------------")
     print("| 1. Crear nueva cuenta bancaria   |")
     print("| 2. Eliminar cuenta bancaria      |")

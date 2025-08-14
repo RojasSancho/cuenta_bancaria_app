@@ -23,9 +23,13 @@ class Banco():
         nombre_cuenta = nombre_cuenta.strip().lower()
         for i, cuenta in enumerate(self._cuentas):
             if cuenta.nombre_cuenta.strip().lower() == nombre_cuenta:
+                if cuenta.saldo>0:
+                    retirado = cuenta.vaciar_saldo()
+                else:
+                    retirado = 0
                 del self._cuentas[i]
-                return True
-        return False
+                return True, retirado
+        return False, 0
 
     def buscar_cuenta_por_nombre(self,nombre_cuenta):
         nombre_cuenta = nombre_cuenta.strip().lower()

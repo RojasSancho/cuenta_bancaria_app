@@ -54,6 +54,11 @@ class CuentaBancaria():
         return self._tiene_tarjeta
 
     # Metodos
+    def vaciar_saldo(self):
+        retirado = self._saldo
+        self._saldo = 0
+        return retirado
+    
     def depositar_dinero(self, monto):
         if not isinstance(monto,(int,float)):
             raise TypeError("El monto debe tener formato de numero.")
@@ -80,3 +85,5 @@ class CuentaBancaria():
         if not self._tiene_tarjeta:
             raise ValueError("La cuenta bancaria no tiene tarjeta para ser desvinculada.")
         self._tiene_tarjeta = False
+    
+    
