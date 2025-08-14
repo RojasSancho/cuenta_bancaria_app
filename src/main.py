@@ -1,3 +1,11 @@
+# ==============================
+# Archivo: main.py
+# Autor: Hermes Rojas Sancho
+# Descripción: Aplicación simple para gestionar cuentas bancarias.
+# Permite crear bancos, cuentas y realizar operaciones básicas.
+# Utiliza una interfaz en terminal.
+# ==============================
+
 from cuenta_bancaria import CuentaBancaria
 from banco import Banco
 from errores import SaldoInsuficienteError
@@ -7,18 +15,39 @@ import os
 import platform
 
 def verificar_solo_letras(texto):
+    """
+    Verifica si una cadena contiene únicamente letras y espacios.
+
+    Args:
+        texto (str): Cadena a validar.
+
+    Returns:
+        bool: True si el texto contiene solo letras y espacios, False en caso contrario.
+    """
     for char in texto:
         if not (char.isalpha() or char.isspace()):  # Verifica que solo haya letras de a-z y espacios
             return False
     return True
 
 def limpiar_consola():
+    """
+    Limpia la consola dependiendo del sistema operativo (Windows o Unix).
+    """
     if platform.system().lower().startswith('win'):
         os.system('cls')
     else:
         os.system('clear')
 
 def crear_cuenta(titular):
+    """
+    Crea una nueva cuenta bancaria para el titular especificado.
+
+    Args:
+        titular (str): Nombre del titular de la cuenta.
+
+    Returns:
+        CuentaBancaria: Instancia de la cuenta creada.
+    """
     while True:
         nombre_cuenta = input("\nIngrese un nombre para la nueva cuenta bancaria: ")
         try: 
@@ -32,20 +61,26 @@ def crear_cuenta(titular):
             return cuenta_bancaria
 
 def eliminar_cuenta(banco):
+    """
+    Elimina una cuenta bancaria del banco si existe.
+
+    Args:
+        banco (Banco): Instancia del banco que contiene las cuentas.
+    """
     if banco.obtener_cuentas() == []:
         print("No hay cuentas existentes.")
         input("Presione ENTER para continuar...")
         return
-    
+
     cuenta_a_borrar = input("Digite el nombre de la cuenta que desea eliminar: ").strip().lower()
-    
+
     if not verificar_solo_letras(cuenta_a_borrar):
         print("\nLa entrada debe tener formato de texto.")
         input("Presione ENTER para continuar...")
         return
-    
+
     eliminado, monto_retirado = banco.eliminar_cuenta_por_nombre(cuenta_a_borrar)
-    
+
     if eliminado:
         print(f"\nCuenta bancaria eliminada! Monto retirado automaticamente: {monto_retirado}")
     else:
@@ -53,15 +88,13 @@ def eliminar_cuenta(banco):
 
     input("Presione ENTER para continuar...")
 
-# def consultar_saldo(cuenta_bancaria):
-#     if cuenta_bancaria is None:
-#         print("\nLa cuenta bancaria aun no sido creada.")
-#         input("Presione ENTER para continuar...")
-#     else:
-#         print(f"El saldo actual de la cuenta es de: {cuenta_bancaria.saldo}")
-#         input("Presione ENTER para continuar...")
-
 def consultar_titular(banco):
+    """
+    Muestra el titular de una cuenta bancaria específica.
+
+    Args:
+        banco (Banco): Instancia del banco que contiene las cuentas.
+    """
     cuentas = banco.obtener_cuentas()
     if cuentas == []:
         print("No hay cuentas existentes.")
@@ -84,6 +117,13 @@ def consultar_titular(banco):
         input("Presione ENTER para continuar...")
 
 def depositar_dinero(banco):
+    """
+    Permite depositar dinero en una cuenta bancaria.
+
+    Args:
+        banco (Banco): Instancia del banco que contiene las cuentas.
+    """
+
     cuentas = banco.obtener_cuentas()
     if not cuentas:
         print("No hay cuentas existentes.")
@@ -108,6 +148,13 @@ def depositar_dinero(banco):
         input("Presione ENTER para continuar...")
 
 def retirar_dinero(banco):
+    """
+    Permite retirar dinero de una cuenta bancaria.
+
+    Args:
+        banco (Banco): Instancia del banco que contiene las cuentas.
+    """
+
     cuentas = banco.obtener_cuentas()
     if not cuentas:
         print("No hay cuentas existentes.")
@@ -132,16 +179,25 @@ def retirar_dinero(banco):
         input("Presione ENTER para continuar...")
 
 def mostrar_cuentas(banco):
+    """
+    Muestra todas las cuentas del banco en formato de tabla.
+
+    Args:
+        banco (Banco): Instancia del banco que contiene las cuentas.
+    """
     cuentas = banco.obtener_cuentas()
     if cuentas != []:
         lista_cuentas = []
         for cuenta in cuentas:
             lista_para_cuenta = [cuenta.nombre_cuenta, f"{cuenta.saldo:,}"]
             lista_cuentas.append(lista_para_cuenta)
-            
+
         print(tabulate(lista_cuentas, headers=["    NOMBRE DE CUENTA  ", "   SALDO   "], tablefmt="fancy_grid"))
 
 def mostrar_menu_principal():
+    """
+    Muestra el menú principal con las opciones disponibles en la aplicación.
+    """
     print("\n------------------------------------")
     print("|            APP BANCO             |")
     print("------------------------------------")
@@ -156,6 +212,15 @@ def mostrar_menu_principal():
 
 # Ejecucion del programa
 def main():
+    """
+    Función principal de la aplicación.
+
+    Flujo:
+    - Solicita el nombre del titular.
+    - Muestra un menú interactivo.
+    - Permite realizar las operaciones bancarias disponibles.
+    """
+    
     banco = Banco()
     cuenta_bancaria = None
     print("\n-------------------------------------")
