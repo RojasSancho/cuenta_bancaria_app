@@ -12,8 +12,13 @@ Aplicación en Python para gestionar cuentas bancarias de manera simulada. Permi
 Demuestra programación orientada a objetos, validaciones, manejo de errores y modularización.
 
 **Estructura del Proyecto**
+
 main.py
+
 banco.py
+
 cuenta_bancaria.py
+
 errores.py
+
 requirements.txt
