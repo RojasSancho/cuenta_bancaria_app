@@ -1,6 +1,6 @@
-**App de Gestión de Cuentas Bancarias (Consola)**
+# **App de Gestión de Cuentas Bancarias (Consola)**
 
-Descripción
+## **Descripción**
 
 Aplicación en Python para gestionar cuentas bancarias de manera simulada. Permite:
 
@@ -21,7 +21,7 @@ Demuestra programación orientada a objetos, validaciones, manejo de errores y m
 | errores.py                         | **2. Ejecuta la app:**             |
 | requirements.txt                   | python main.py                     |
 
-**Habilidades que Demuestra**
+## **Habilidades que Demuestra**
 
 * OOP y encapsulamiento.
 
