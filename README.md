@@ -14,7 +14,7 @@ Demuestra programación orientada a objetos, validaciones, manejo de errores y m
 
 | **Estructura del Proyecto**        | **Instalación y Ejecución**        |
 |------------------------------------|------------------------------------|
-| main.py                            | **1. Instala dependencias: **      |
+| main.py                            | **1. Instala dependencias:**       |
 | banco.py                           | pip install -r requirements.txt    |
 | cuenta_bancaria.py                 | **2. Ejecuta la app:**             |
 | errores.py                         |------------------------------------|
