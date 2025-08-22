@@ -19,3 +19,14 @@ Demuestra programación orientada a objetos, validaciones, manejo de errores y m
 | cuenta_bancaria.py                 | 
 | errores.py                         |
 | requirements.txt                   |
+
+**Instalación y Ejecución**
+
+**Instala dependencias:**
+
+pip install -r requirements.txt
+
+
+**Ejecuta la app:**
+
+python main.py
