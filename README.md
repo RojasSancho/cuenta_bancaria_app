@@ -20,13 +20,12 @@ Demuestra programación orientada a objetos, validaciones, manejo de errores y m
 | errores.py                         | **2. Ejecuta la app:**             |
 | requirements.txt                   | python main.py                     |
 
-**Instalación y Ejecución**
+**Habilidades que Demuestra**
 
-**Instala dependencias:**
+* OOP y encapsulamiento.
 
-pip install -r requirements.txt
+* Validación de datos y manejo de excepciones.
 
+* Modularización y separación de responsabilidades.
 
-**Ejecuta la app:**
-
-python main.py
+* Interfaz en consola con visualización clara.
