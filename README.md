@@ -10,3 +10,10 @@ Aplicación en Python para gestionar cuentas bancarias de manera simulada. Permi
 * Consultar titular y mostrar saldo en tabla.
 
 Demuestra programación orientada a objetos, validaciones, manejo de errores y modularización.
+
+**Estructura del Proyecto**
+main.py
+banco.py
+cuenta_bancaria.py
+errores.py
+requirements.txt
