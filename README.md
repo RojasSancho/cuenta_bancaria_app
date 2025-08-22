@@ -17,9 +17,9 @@ Demuestra programación orientada a objetos, validaciones, manejo de errores y m
 |------------------------------------|------------------------------------|
 | main.py                            |                                    |
 | banco.py                           | **1. Instala dependencias:**       |
-| cuenta_bancaria.py                 | ```pip install -r requirements.txt    |
+| cuenta_bancaria.py                 | pip install -r requirements.txt    |
 | errores.py                         | **2. Ejecuta la app:**             |
-| requirements.txt                   | ```python main.py                     |
+| requirements.txt                   | python main.py                     |
 
 ## **Habilidades que Demuestra**
 
