@@ -30,6 +30,3 @@ Demuestra programación orientada a objetos, validaciones, manejo de errores y m
 * Modularización y separación de responsabilidades.
 
 * Interfaz en consola con visualización clara.
-
-
-pip install -r requirements.txt
